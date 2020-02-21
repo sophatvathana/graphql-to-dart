@@ -1,6 +1,6 @@
 {{~#*inline "fieldsClass" ~}}
 {{ multilineComment description }}
-class {{ className }}  {{ classExtends interfaces=(wrapFields interfaces) }} {
+class {{> className=(toPascalCase name) }}  {{ classExtends interfaces=(wrapFields interfaces) }} {
 
   {{#each fields}}{{#if type}}{{#if name}}
   {{#if description }}{{ multilineComment description }}
@@ -15,16 +15,16 @@ class {{ className }}  {{ classExtends interfaces=(wrapFields interfaces) }} {
   }} {{ dartName name }};
   {{~/if}}{{/if}}{{/each}}
 
-  {{ className }}({
+  {{> className=(toPascalCase name) }}({
     {{#each fields}}{{#if name}}
       this.{{ dartName name }},
     {{/if}}{{/each}}
   });
 
-  /// Adds all fields from [other] to this `{{ className }}`.
+  /// Adds all fields from [other] to this `{{> className=(toPascalCase name) }}`.
   /// 
   /// pre-existing values are not overwritten unless `overwrite: true`
-  void addAll(covariant {{ className }} other, { bool overwrite = true, }) {
+  void addAll(covariant {{> className=(toPascalCase name) }} other, { bool overwrite = true, }) {
     assert(other != null, "Cannot add all from null into $this");
     if (overwrite != null && overwrite){
       {{#each fields}}{{#if name}}
